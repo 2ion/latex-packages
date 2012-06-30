@@ -1,0 +1,14 @@
+# latex-packages
+
+This repository contains LaTeX packages I created to abstract some
+recurring typing away.
+
+License information as well as documentation is contained in all files.
+Please cat them to learn about these things.
+
+However, these packages may not be written cleanly or cleverly, because
+they are only hacks. So, it may break some things.
+
+Then again, I use these packges with the TeXLive distro from Debian Sid,
+but my ~/texmf overrides an absurdly high number of packages, so here
+too things may go wrong.
