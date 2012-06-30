@@ -9,6 +9,6 @@ Please cat them to learn about these things.
 However, these packages may not be written cleanly or cleverly, because
 they are only hacks, and first attempts. So, they may break some things.
 
-Then again, I use these packges with the TeXLive distro from Debian Sid,
+Then again, I use these packages with the TeXLive distro from Debian Sid,
 but my ~/texmf overrides an absurdly high number of packages, so here
 too things may go wrong.
