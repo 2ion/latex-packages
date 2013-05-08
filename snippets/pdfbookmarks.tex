@@ -1,0 +1,64 @@
+\usepackage{hyperref,pdfpages,bookmark}
+
+% Commands for appending texts from the syllabus. The entries will not
+% be added to the TOC, but to the PDF bookmarks. \SyllabusText opens a
+% named section of syllabus texts and adds a text to said section.
+% \SyllabusSubtext adds a text to an opened section. Every invocation of
+% \SyllabusText creates a new section. PDF pages will be included in
+% landscape format by default; add the Upright suffix to the commands to
+% include pages in upright position:
+
+% \SyllabusText{<pdf-file>}{<Syllabus section name>}{<text name>}
+% \SyllabusSubtext{<pdf-file>}{<text name>}
+% \SyllabusTextUpright (arguments like above)
+% \SyllabusSubtextUpright (arguments like above)
+
+\newcounter{syllabustext}
+\newcounter{syllabussubtext}[syllabustext]
+\setcounter{syllabustext}{0}
+\setcounter{syllabussubtext}{0}
+\newcommand*{\SyllabusText}[3]{%
+    \stepcounter{syllabustext}%
+    \ifcsname SyllabusTargetName\endcsname%
+        \renewcommand{\SyllabusTargetName}{Syllabus \arabic{syllabustext}}%
+    \else%
+        \newcommand{\SyllabusTargetName}{Syllabus \arabic{syllabustext}}%
+    \fi%
+    \includepdf[page=1,landscape,pagecommand={\thispagestyle{empty}\hypertarget{\SyllabusTargetName}{}}]{#1}%
+    \includepdf[page=2-,landscape]{#1}%
+    \bookmark[dest={\SyllabusTargetName},level=1]{\SyllabusTargetName: #2}%
+    \bookmark[dest={\SyllabusTargetName},level=2]{#3}}
+
+\newcommand*{\SyllabusSubtext}[2]{%
+    \stepcounter{syllabussubtext}%
+    \ifcsname SyllabusSubTargetName\endcsname%
+        \renewcommand{\SyllabusSubTargetName}{SyllabusSub \arabic{syllabustext}\arabic{syllabussubtext}}%
+    \else%
+        \newcommand{\SyllabusSubTargetName}{SyllabusSub \arabic{syllabustext}\arabic{syllabussubtext}}%
+    \fi%
+    \includepdf[page=1,landscape,pagecommand={\thispagestyle{empty}\hypertarget{\SyllabusSubTargetName}{}}]{#1}%
+    \includepdf[page=2-,landscape]{#1}%
+    \bookmark[dest={\SyllabusSubTargetName},level=2]{#2}}
+
+\newcommand*{\SyllabusTextUpright}[3]{%
+    \stepcounter{syllabustext}%
+    \ifcsname SyllabusTargetName\endcsname%
+        \renewcommand{\SyllabusTargetName}{Syllabus \arabic{syllabustext}}%
+    \else%
+        \newcommand{\SyllabusTargetName}{Syllabus \arabic{syllabustext}}%
+    \fi%
+    \includepdf[page=1,pagecommand={\thispagestyle{empty}\hypertarget{\SyllabusTargetName}{}}]{#1}%
+    \includepdf[page=2-]{#1}%
+    \bookmark[dest={\SyllabusTargetName},level=1]{\SyllabusTargetName: #2}%
+    \bookmark[dest={\SyllabusTargetName},level=2]{#3}}
+
+\newcommand*{\SyllabusSubtextUpright}[2]{%
+    \stepcounter{syllabussubtext}%
+    \ifcsname SyllabusSubTargetName\endcsname%
+        \renewcommand{\SyllabusSubTargetName}{SyllabusSub \arabic{syllabustext}\arabic{syllabussubtext}\}%
+    \else%
+        \newcommand{\SyllabusSubTargetName}{SyllabusSub \arabic{syllabustext}\arabic{syllabussubtext}}%
+    \fi%
+    \includepdf[page=1,pagecommand={\thispagestyle{empty}\hypertarget{\SyllabusSubTargetName}{}}]{#1}
+    \includepdf[page=2-]{#1}
+    \bookmark[dest={\SyllabusSubTargetName},level=2]{#2}}
